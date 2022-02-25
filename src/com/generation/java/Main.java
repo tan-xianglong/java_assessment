@@ -83,10 +83,7 @@ public class Main
 
     private static void showStudentsSummary( StudentService studentService, Scanner scanner )
     {
-        if (!studentService.showSummary())
-        {
-            System.out.println("No Student Yet");
-        }
+        studentService.showSummary();
     }
 
     private static void gradeStudent( StudentService studentService, Scanner scanner )

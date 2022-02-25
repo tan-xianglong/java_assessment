@@ -23,11 +23,23 @@ public class StudentService
         return null;
     }
 
-    public boolean showSummary()
+    public void showSummary()
     {
         //TODO
+        String printSummary = "";
+        if (students.size()>0){
+            for (Student student : this.students.values()){
+                String printEnrolledCourses = "";
+                for (int i = 0; i < student.getEnrolledCourses().size(); i++){
+                    printEnrolledCourses += student.getEnrolledCourses().get(i) + "\n";
+                }
+                printSummary += student + "\n" + "Enrolled Courses:\n" + printEnrolledCourses + "\n";
+            }
+            System.out.println(printSummary);
+        } else {
+            System.out.println("No Student Yet");
+        }
 
-        return true;
     }
 
     public void enrollToCourse( String studentId, Course course )

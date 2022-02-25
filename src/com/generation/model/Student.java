@@ -41,6 +41,9 @@ public class Student
     public List<Course> getEnrolledCourses()
     {
         //TODO
+        if (this.enrolledCourses.size() > 0) {
+            return this.enrolledCourses;
+        }
         return null;
     }
 
