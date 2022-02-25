@@ -103,7 +103,7 @@ public class Main
         }
         Course course = student.findCourseById(courseId);
         System.out.println("Insert course grade for: "+course.getName());
-        double courseGrade = Double.parseDouble(scanner.next()); // To catch exception
+        double courseGrade = Double.parseDouble(scanner.next()); // To catch exception and max min 1 - 6
         student.gradeCourse(course, courseGrade);
     }
 

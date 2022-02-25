@@ -33,6 +33,15 @@ public class Student
     public List<Course> findPassedCourses()
     {
         //TODO
+        if (this.enrolledCourses.size() > 0) {
+            List<Course> enrolledCoursesList = new ArrayList<>();
+            for(Course course : this.enrolledCourses.keySet()){
+                if (this.enrolledCourses.get(course) >= PASS_MIN_GRADE){
+                    enrolledCoursesList.add(course);
+                }
+            }
+            return enrolledCoursesList;
+        }
         return null;
     }
 
