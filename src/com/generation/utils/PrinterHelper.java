@@ -29,6 +29,7 @@ public class PrinterHelper
 
     public static Student createStudentMenu( Scanner scanner ) throws ParseException
     {
+        boolean checkInputError = true;
         System.out.println( "|-------------------------------------|" );
         System.out.println( "| . 1 Register Student                |" );
         System.out.println( "|-------------------------------------|" );
@@ -43,12 +44,22 @@ public class PrinterHelper
         DateFormat formatter = new SimpleDateFormat( "MM/dd/yyyy" );
 
         //TODO validate date format and catch exception to avoid crash
+        do {
+            try {
+                Date birthDate = formatter.parse( scanner.next() );
+                checkInputError = false;
+                System.out.println( "|-------------------------------------|" );
+                Student student = new Student( id, name, email, birthDate );
+                System.out.println( "Student Successfully Registered! " );
+                System.out.println( student );
+                return student;
+            }
+            catch (ParseException e){
+                System.out.println("Please enter a correct date format MM/dd/yyyy.");
+            }
+        } while (checkInputError);
 
-        Date birthDate = formatter.parse( scanner.next() );
-        System.out.println( "|-------------------------------------|" );
-        Student student = new Student( id, name, email, birthDate );
-        System.out.println( "Student Successfully Registered! " );
-        System.out.println( student );
-        return student;
+
+        return null;
     }
 }

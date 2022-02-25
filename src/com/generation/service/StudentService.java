@@ -17,6 +17,9 @@ public class StudentService
     public Student findStudent( String studentId )
     {
         //TODO
+        if(this.students.containsKey(studentId)){
+            return this.students.get(studentId);
+        }
         return null;
     }
 
