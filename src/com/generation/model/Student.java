@@ -1,8 +1,12 @@
 package com.generation.model;
 
+import com.generation.service.CourseService;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Student
     extends Person
@@ -10,18 +14,19 @@ public class Student
 {
 
     float PASS_MIN_GRADE = 3.0f;
-    private List<Course> enrolledCourses;
+    private Map<Course, Double> enrolledCourses;
+
 
     public Student( String id, String name, String email, Date birthDate )
     {
         super( id, name, email, birthDate );
-        this.enrolledCourses = new ArrayList<>();
+        this.enrolledCourses = new HashMap<>();
     }
 
     public void enrollToCourse( Course course )
     {
         //TODO
-        enrolledCourses.add(course);
+        this.enrolledCourses.put(course, 0.0);
     }
 
     @Override
@@ -34,7 +39,16 @@ public class Student
     public Course findCourseById( String courseId )
     {
         //TODO
-       return null;
+        for(Course course : this.enrolledCourses.keySet()){
+            if(course.getCode().equals(courseId)){
+                return  course;
+            }
+        }
+        return null;
+    }
+
+    public void gradeCourse (Course course, double courseGrade){
+        this.enrolledCourses.replace(course, courseGrade);
     }
 
     @Override
@@ -42,9 +56,31 @@ public class Student
     {
         //TODO
         if (this.enrolledCourses.size() > 0) {
-            return this.enrolledCourses;
+            List<Course> enrolledCoursesList = new ArrayList<>();
+            for(Course course : this.enrolledCourses.keySet()){
+                enrolledCoursesList.add(course);
+            }
+            return enrolledCoursesList;
         }
         return null;
+    }
+
+    private double getGrade(Course course){
+        return this.enrolledCourses.get(course);
+    }
+
+    public String printEnrolledCourses()
+    {
+        String printEnrolledCourses = "";
+
+        for (int i = 0; i < this.getEnrolledCourses().size(); i++){
+            String grade = "";
+            if(getGrade(this.getEnrolledCourses().get(i)) != 0){
+                grade = " Grade: "+ String.valueOf(getGrade(this.getEnrolledCourses().get(i)));
+            }
+            printEnrolledCourses += this.getEnrolledCourses().get(i) + grade + "\n";
+        }
+        return printEnrolledCourses;
     }
 
     @Override

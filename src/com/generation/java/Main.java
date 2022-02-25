@@ -6,6 +6,7 @@ import com.generation.service.CourseService;
 import com.generation.service.StudentService;
 import com.generation.utils.PrinterHelper;
 
+import javax.sound.midi.Soundbank;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public class Main
         do
         {
             PrinterHelper.showMainMenu();
-            option = scanner.nextInt();
+            option = scanner.nextInt(); // to validate input
             switch ( option )
             {
                 case 1:
@@ -89,11 +90,21 @@ public class Main
     private static void gradeStudent( StudentService studentService, Scanner scanner )
     {
 
-        Student student = getStudentInformation( studentService, scanner );
+        Student student = getStudentInformation( studentService, scanner );// To check for case where there is no course enrolled
         System.out.println( "Enrolled course:" );
 
         //TODO
-
+        System.out.println(student.printEnrolledCourses());
+        System.out.println("Insert course ID to be graded");
+        String courseId = scanner.next();
+        if(student.findCourseById(courseId) == null){
+            System.out.println("Course not found");
+            return;
+        }
+        Course course = student.findCourseById(courseId);
+        System.out.println("Insert course grade for: "+course.getName());
+        double courseGrade = Double.parseDouble(scanner.next()); // To catch exception
+        student.gradeCourse(course, courseGrade);
     }
 
     private static Student getStudentInformation( StudentService studentService, Scanner scanner )

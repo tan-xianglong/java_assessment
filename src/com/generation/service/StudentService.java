@@ -29,11 +29,7 @@ public class StudentService
         String printSummary = "";
         if (students.size()>0){
             for (Student student : this.students.values()){
-                String printEnrolledCourses = "";
-                for (int i = 0; i < student.getEnrolledCourses().size(); i++){
-                    printEnrolledCourses += student.getEnrolledCourses().get(i) + "\n";
-                }
-                printSummary += student + "\n" + "Enrolled Courses:\n" + printEnrolledCourses + "\n";
+                printSummary += student + "\n" + "Enrolled Courses:\n" + student.printEnrolledCourses() + "\n";
             }
             System.out.println(printSummary);
         } else {
@@ -41,6 +37,7 @@ public class StudentService
         }
 
     }
+
 
     public void enrollToCourse( String studentId, Course course )
     {
