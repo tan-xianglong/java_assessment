@@ -26,11 +26,14 @@ public class StudentService
     public boolean showSummary()
     {
         //TODO
-        return false;
+
+        return true;
     }
 
     public void enrollToCourse( String studentId, Course course )
     {
         //TODO
+        Student student = this.students.get(studentId);
+        student.enrollToCourse(course);
     }
 }
