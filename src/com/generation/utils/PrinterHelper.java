@@ -55,7 +55,8 @@ public class PrinterHelper
                 return student;
             }
             catch (ParseException e){
-                System.out.println("Please enter a correct date format MM/dd/yyyy.");
+                System.out.println("Invalid date format. Make sure you type date using the following format: MM/dd/yyyy");
+                System.out.println( "| Enter student birth date(MM/dd/yyyy)|" );
             }
         } while (checkInputError);
 
