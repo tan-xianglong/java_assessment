@@ -90,7 +90,13 @@ public class Main
     private static void gradeStudent( StudentService studentService, Scanner scanner )
     {
 
-        Student student = getStudentInformation( studentService, scanner );// To check for case where there is no course enrolled
+        Student student = getStudentInformation( studentService, scanner );
+        if (student == null){
+            return;
+        } else if(student.getEnrolledCourses() == null){
+            System.out.println("Student has not enrolled any course.");
+            return;
+        }
         System.out.println( "Enrolled course:" );
 
         //TODO
@@ -102,9 +108,23 @@ public class Main
             return;
         }
         Course course = student.findCourseById(courseId);
-        System.out.println("Insert course grade for: "+course.getName());
-        double courseGrade = Double.parseDouble(scanner.next()); // To catch exception and max min 1 - 6
-        student.gradeCourse(course, courseGrade);
+        boolean checkInputError = false;
+        do{
+            try {
+                System.out.println("Insert course grade for: "+course.getName());
+                double courseGrade = Double.parseDouble(scanner.next());
+                if ( courseGrade < 1.0 || courseGrade > 6.0){
+                    throw new NumberFormatException();
+                } else {
+                    student.gradeCourse(course, courseGrade);
+                    System.out.println("Grade has been entered successfully.");
+                    checkInputError = true;
+                }
+            } catch (NumberFormatException e){
+                System.out.println("Please enter a number between 1 - 6.");
+            }
+        } while (!checkInputError);
+
     }
 
     private static Student getStudentInformation( StudentService studentService, Scanner scanner )
